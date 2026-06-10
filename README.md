@@ -97,7 +97,13 @@ a single one-shot prompt → one cell.
 
 ## Data distribution
 The large files (`*.h5ad`, `*.parquet`, `*.ome.tif`) are git-ignored and
-distributed via Hugging Face — see the data-card once uploaded.
+distributed via Hugging Face (CC BY 4.0):
+**[honicky/cervical-tls-workshop-crop](https://huggingface.co/datasets/honicky/cervical-tls-workshop-crop)**.
+Fetch them into place with:
+```bash
+hf download honicky/cervical-tls-workshop-crop --repo-type dataset \
+    --local-dir data/cervical_tls_workshop
+```
 
 ## Provenance
 Crop + original full-slide analysis:
