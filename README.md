@@ -24,6 +24,7 @@ src/                          the workshop toolkit the notebook imports
   workshop_lib.py               vetted mechanics (render, MDS, triad-finding, legend rollup)
 workshop_figures.ipynb        the figures, one cell per figure (run this)
 figures/                      figure PNGs written by the notebook
+scripts/download_data.sh      fetch the crop from Hugging Face into data/
 ```
 
 The biology (what a lineage is, what a triad is) and the styling live in
@@ -99,11 +100,12 @@ a single one-shot prompt → one cell.
 The large files (`*.h5ad`, `*.parquet`, `*.ome.tif`) are git-ignored and
 distributed via Hugging Face (CC BY 4.0):
 **[honicky/cervical-tls-workshop-crop](https://huggingface.co/datasets/honicky/cervical-tls-workshop-crop)**.
-Fetch them into place with:
+Fetch them into `data/cervical_tls_workshop/` with the helper script (uses `hf` or
+`uvx`, no token needed):
 ```bash
-hf download honicky/cervical-tls-workshop-crop --repo-type dataset \
-    --local-dir data/cervical_tls_workshop
+./scripts/download_data.sh
 ```
+or directly: `hf download honicky/cervical-tls-workshop-crop --repo-type dataset --local-dir data/cervical_tls_workshop`
 
 ## Provenance
 Crop + original full-slide analysis:
