@@ -1,10 +1,5 @@
-# Large Xenium data — distributed via Hugging Face, not git
-data/cervical_tls_workshop/*.h5ad
-data/cervical_tls_workshop/*.parquet
-data/cervical_tls_workshop/*.ome.tif
-
-# Private CITE-seq collection (local-only, not part of the workshop repo)
-data/cdiam_citeseq_human/
+# Data is local-only (distributed via Hugging Face, not git)
+data/
 
 # Python
 __pycache__/
