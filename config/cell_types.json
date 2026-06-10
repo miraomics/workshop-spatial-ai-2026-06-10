@@ -1,0 +1,47 @@
+{
+  "_doc": "Cell-type vocabulary for the workshop: which obs columns carry the labels, and how named lineages map onto the Cell Ontology. Keeps biological definitions out of the prompts and the figure code.",
+
+  "label_column": "cell_type_cdiam_miratyper_v1_constrained_alpha0100",
+  "label_column_note": "Fine-grained MiraTyper call (Cell Ontology names). Produced in Step 0; also pre-baked in the crop obs.",
+  "malignancy_column": "p_malignant",
+  "malignant_threshold": 0.5,
+
+  "immune_root": "leukocyte",
+  "immune_root_note": "A cell is 'immune' iff its type is `leukocyte` or any ontology descendant of it.",
+
+  "membership_rule": "A cell belongs to a lineage iff its label is the lineage's ontology root, or any descendant of that root in the Cell Ontology graph (assets/cell_ontology_graph.pkl). Use directed descendants (general -> specific).",
+
+  "lineages": {
+    "CD8 T cell":     "CD8-positive, alpha-beta T cell",
+    "CD4 T cell":     "CD4-positive, alpha-beta T cell",
+    "T cell other":   "T cell",
+    "B cell":         "B cell",
+    "Plasma cell":    ["plasma cell", "plasmablast"],
+    "Dendritic cell": "dendritic cell",
+    "NK cell":        "natural killer cell",
+    "Macrophage":     "macrophage"
+  },
+
+  "draw_order": [
+    "Malignant", "Macrophage", "NK cell", "Dendritic cell", "Plasma cell",
+    "B cell", "T cell other", "CD4 T cell", "CD8 T cell"
+  ],
+  "draw_order_note": "Resolves cells that match multiple sets (e.g. a cytotoxic CD8 cell is also a 'T cell'). Paint in this order; later entries win. 'Malignant' fills any non-immune cell with p_malignant >= threshold that no lineage claimed.",
+
+  "immune_legend_groups": [
+    {"name": "CD8 T cell",     "roots": ["CD8-positive, alpha-beta T cell"]},
+    {"name": "CD4 T cell",     "roots": ["CD4-positive, alpha-beta T cell"]},
+    {"name": "T cell other",   "roots": ["T cell"]},
+    {"name": "NK cell",        "roots": ["natural killer cell"]},
+    {"name": "B cell",         "roots": ["B cell"]},
+    {"name": "Plasma cell",    "roots": ["plasma cell", "plasmablast"]},
+    {"name": "Dendritic cell", "roots": ["dendritic cell"]},
+    {"name": "Macrophage",     "roots": ["macrophage"]},
+    {"name": "Monocyte",       "roots": ["monocyte"]},
+    {"name": "Mast cell",      "roots": ["mast cell"]},
+    {"name": "Neutrophil",     "roots": ["neutrophil"]},
+    {"name": "ILC",            "roots": ["innate lymphoid cell"]},
+    {"name": "Other immune",   "roots": ["leukocyte"]}
+  ],
+  "immune_legend_groups_note": "Figure 1's immune legend rolls fine cell types up to these major lineages so sparse-but-fragmented lineages (e.g. CD8, split across 6 subtypes) still appear. First match wins, ordered specific->general; 'Other immune' = leukocyte catch-all. The image still colors each cell by its fine ontology hue; each legend swatch uses the group's most-common subtype color as a representative."
+}

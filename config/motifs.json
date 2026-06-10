@@ -1,0 +1,48 @@
+{
+  "_doc": "Spatial motifs and the tertiary-lymphoid-structure score. The triad *definition* comes from the literature (see triad.source); only the operational spatial parameters live here. The tetrad is an exploratory extension defined by this analysis, NOT by the triad paper.",
+
+  "triad": {
+    "anchor": "CD8 T cell",
+    "partners": ["CD4 T cell", "Dendritic cell"],
+    "rule": "A CD8 T cell is a triad anchor iff at least one CD4 T cell AND at least one dendritic cell lie within `radius_um` of its centroid.",
+    "radius_um": 20.0,
+    "display_thinning_um": 80.0,
+    "display_thinning_note": "Greedy spatial thinning so drawn rings don't overlap; affects display only, not the anchor count.",
+    "source": {
+      "definition_from": "literature",
+      "citation": "Espinosa-Carrasco G, et al. Intratumoral immune triads are required for immunotherapy-mediated elimination of solid tumors. Cancer Cell. 2024 Jul 8;42(7):1202-1216.e8.",
+      "doi": "10.1016/j.ccell.2024.05.025",
+      "pmid": "38906155",
+      "fulltext_url": "https://www.cell.com/cancer-cell/fulltext/S1535-6108(24)00193-4",
+      "open_summary_urls": [
+        "https://www.mskcc.org/news/better-together-spatial-arrangement-of-three-immune-cells-is-key-to-attacking-tumors",
+        "https://acir.org/weekly-digests/2024/june/threes-company-immune-triads-license-cd8-t-cell-mediated-antitumor-immunity"
+      ],
+      "what_to_extract": "Which three cell types form a triad (CD8 T cell, CD4 T cell, antigen-presenting dendritic cell) and why their co-localization matters (CD4 licenses CD8 cytotoxicity / prevents exhaustion). The 20 um radius below is our spatial operationalization of 'co-localized' for Xenium centroids, not a number from the paper."
+    }
+  },
+
+  "tetrad": {
+    "extends": "triad",
+    "adds": "Macrophage",
+    "rule": "A triad anchor that additionally has at least one macrophage within `radius_um`.",
+    "radius_um": 20.0,
+    "source": {
+      "definition_from": "analysis_extension",
+      "note": "Exploratory 4-cell niche defined in this workshop's parent analysis; it is NOT from the Espinosa-Carrasco paper. Present it as our extension, not as established literature."
+    }
+  },
+
+  "tls_score": {
+    "_doc": "Germinal-centre maturity score for a lymphoid aggregate, evaluated over a core radius around the aggregate centroid. Higher = more textbook mature TLS.",
+    "core_radius_um": 100.0,
+    "markers": {
+      "follicular_b_chemokine": "CXCL13",
+      "t_zone_chemokines": ["CCL19", "CCL21"],
+      "mature_migratory_dc": "LAMP3"
+    },
+    "marker_positive_rule": "gene raw count > 0 in that cell",
+    "formula": "log1p(n_B) * log1p(n_CXCL13_pos) * log1p(n_CCL19_or_21_pos) * log1p(n_LAMP3_pos_DC)",
+    "components": ["n_B", "n_plasma", "n_T", "n_DC", "n_CXCL13_pos", "n_CCL19_or_21_pos", "n_LAMP3_pos_DC"]
+  }
+}

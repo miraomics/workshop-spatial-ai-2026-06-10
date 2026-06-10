@@ -1,0 +1,52 @@
+{
+  "_doc": "Visual design language for the cervical-TLS workshop figures. Machine-readable companion to DESIGN.md. All colors are RGB 0-255. Single source of truth: the reference scripts load this file; prompts point the agent at it instead of hard-coding values.",
+
+  "canvas": {
+    "background_rgb": [0, 0, 0],
+    "um_per_px": 1.0,
+    "dpi": 150,
+    "note": "One pixel per micron. Cells are drawn as filled segmentation polygons (not dots). Coordinates are absolute slide microns; subtract the render box min-corner before drawing."
+  },
+
+  "malignancy_ramp": {
+    "_use": "non-immune cells in the combined mask (Figure 1)",
+    "hue_deg": 0,
+    "saturation_from": "p_malignant",
+    "saturation_max": 0.85,
+    "value": 1.0,
+    "reads_as": "white at P(malignant)=0, saturated red at P=1, constant brightness"
+  },
+
+  "immune_ontology_ramp": {
+    "_use": "immune cells in the combined mask (Figure 1)",
+    "hue_start_deg": 120,
+    "hue_end_deg": 240,
+    "saturation": 0.85,
+    "value": 1.0,
+    "embedding": "1-D metric MDS on cell-ontology shortest-path distance between the immune types present, min-max scaled to the hue range",
+    "mds_params": {"n_components": 1, "dissimilarity": "precomputed", "random_state": 0, "n_init": 8, "max_iter": 500},
+    "missing_path_distance": 50,
+    "reads_as": "lymphoid green, myeloid blue, related types adjacent in hue"
+  },
+
+  "categorical_colors": {
+    "_use": "discrete cell-type fills in the zoom figures (Figures 2 and 3)",
+    "CD8 T cell":      [255, 215, 0],
+    "CD4 T cell":      [0, 170, 255],
+    "T cell other":    [60, 130, 200],
+    "B cell":          [255, 105, 180],
+    "Plasma cell":     [200, 80, 200],
+    "Dendritic cell":  [0, 255, 128],
+    "NK cell":         [0, 100, 255],
+    "Macrophage":      [210, 150, 70],
+    "Malignant":       [220, 60, 60]
+  },
+
+  "motif_rings": {
+    "_use": "outline rings drawn on spatial-motif anchors",
+    "triad_rgb":  [255, 80, 255],
+    "tetrad_rgb": [255, 150, 0],
+    "radius_um": 30.0,
+    "line_width_px": 4
+  }
+}
