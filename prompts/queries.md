@@ -44,6 +44,26 @@ desc ad.obs;
 select distinct cell_type_cdiam_miratyper_v1_constrained_alpha1000 from ad.obs;
 ```
 
+## Scanning a whole collection of h5ad files with a wildcard
+
+`anndata_scan_obs(glob)` reads the **obs** metadata of every file matching a glob
+in one pass — no `attach` per file, no loading expression matrices — and adds a
+`_file_name` column so you can tell rows apart by source file. Run `duckdb` from the
+directory holding the files (or put the path in the glob).
+
+```sql
+-- e.g. from a directory of CITE-seq h5ads:
+--   cd /path/to/cdiam_citeseq_human
+-- one row per (file, condition) with the patient count in each
+select _file_name, patient_condition_cdiam, count(distinct patient_id_cdiam)
+from anndata_scan_obs('scCITE-*.h5ad')
+group by all;
+```
+
+`group by all` groups by every non-aggregated select column, so adding/removing a
+breakdown column needs no edit to the `group by`. Swap the glob (`*.h5ad`,
+`scCITE-*.h5ad`, `data/**/*.h5ad`) to widen or narrow the collection.
+
 ## Links
 
 * Extension Readme: https://github.com/honicky/anndata-duckdb-extension

@@ -65,5 +65,14 @@ WORKSHOP CONVENTIONS
   alpha 0.1 = `_alpha0010` from regenerated `results/labels_miratyper.parquet`; the baked
   crop obs instead has `_alpha0100`(1.0)/`_alpha1000`(10).
 - Canonical lineage name is `"T cell other"` (no parentheses) everywhere in config.
+- Experiment log: record EVERY experiment in `./EXPERIMENT_LOG.md` so the work can be
+  reproduced from scratch later. One entry per attempt, appended in order, following the
+  format already in that file (it is the guide): the verbatim spoken prompt (🎤, WisprFlow
+  output as-is), what the agent actually did (🤖 — inputs used, commands/flags run, key
+  numbers/outputs, file paths written), the verdict (✅/❌), and the change for the next try
+  (→). Add 🔬 findings, 🐛 bugs-and-fixes, and 🔧 config changes as they happen. Log enough
+  that someone with only this repo + the public web could rerun it and get the same result;
+  cite the source notebook/script and the config values used. Write the entry as part of
+  doing the experiment, not after the fact.
 - The crop data (`data/cervical_tls_workshop/*`, ~660 MB) is gitignored;
 
