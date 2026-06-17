@@ -3,11 +3,11 @@
 Hands-on workshop: drive a spatial-transcriptomics analysis **by prompting an AI
 agent**, reproducing the key figures from the Mira Omics case study
 [*Cervical triads & tertiary lymphoid structures*](https://miraomics.bio/case-studies/cervical-triads-tls/)
-on a small, self-contained crop of the 10x Xenium WTA cervical-cancer slide.
+on a small, self-contained crop of the 10x Atera WTA cervical-cancer slide.
 
 The crop is **~1/35 of the slide** (26,047 cells, 1500 µm square) centered on the
 slide's most mature **tertiary lymphoid structure (TLS)**, but carries every
-native Xenium layer at full resolution so it downloads in seconds.
+native Atera layer at full resolution so it downloads in seconds.
 
 ## Layout
 ```
